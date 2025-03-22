@@ -16,7 +16,7 @@
 ## Considerando o ambiente com Docker e WSL2 configurado:
 
 1. Confira se o Docker esta habilitado para WSL2
-> ⚙️Settings > Resources > WSL Integration
+    > ⚙️Settings > Resources > WSL Integration
 
 1. ⬇️ Clone os fontes do GitHub:
 
@@ -27,7 +27,7 @@ git clone https://github.com/alexandregomes3112/Private-BESU-QBFT.git
 1. Entre na pasta onde os fontes foram copiados
 
 ```sh
-cd '.\Caminho\para\fontes\LFDT'
+cd Private-BESU-QBFT/
 ``` 
 1. 🔎 Verifique se o arquivo Dockerfile está no mesmo diretório que você entrou e faça o build das imagens
 
@@ -72,7 +72,7 @@ docker build -t besu:lfdt .
 
 ## Configurar o Explorador de Blocos da Chainless
 
-1. 📖 Documentação Oficial:
+📖 Documentação Oficial:
 🔗 [Chainless](https://besu.hyperledger.org/private-networks/how-to/monitor/chainlens)
 
 

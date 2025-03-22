@@ -51,7 +51,7 @@ RUN besu operator generate-blockchain-config \
     --private-key-file-name=key
 
 
-COPY copy_keys.sh .
+COPY copy_keys.sh /besu-25.3.0/QBFT-Network/
 RUN chmod +x /besu-25.3.0/QBFT-Network/copy_keys.sh
 RUN /besu-25.3.0/QBFT-Network/copy_keys.sh
 
