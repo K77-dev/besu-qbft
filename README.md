@@ -36,7 +36,7 @@ docker build -t besu:lfdt .
 ```
 1. ⏳ Aguarde cerca de 2 a 5min para baixar e configurar o ambiente
 
-1. 💩 Caso esteja usando **Windows**, execute o script abaixo:
+1. Caso esteja usando **Windows** (💩), execute o script abaixo:
 
 ```sh
 .\start_demo.ps1
