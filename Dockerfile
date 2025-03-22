@@ -52,6 +52,7 @@ RUN besu operator generate-blockchain-config \
 
 
 COPY copy_keys.sh /besu-25.3.0/QBFT-Network/
+RUN sed -i 's/\r$//' /besu-25.3.0/QBFT-Network/copy_keys.sh
 RUN chmod +x /besu-25.3.0/QBFT-Network/copy_keys.sh
 RUN /besu-25.3.0/QBFT-Network/copy_keys.sh
 
@@ -60,6 +61,10 @@ RUN apt install -y curl
 
 WORKDIR /besu-25.3.0
 COPY n1up.sh n2up.sh n3up.sh n4up.sh /besu-25.3.0/
+RUN sed -i 's/\r$//' /besu-25.3.0/QBFT-Network/n1up.sh
+RUN sed -i 's/\r$//' /besu-25.3.0/QBFT-Network/n2up.sh
+RUN sed -i 's/\r$//' /besu-25.3.0/QBFT-Network/n3up.sh
+RUN sed -i 's/\r$//' /besu-25.3.0/QBFT-Network/n4up.sh
 
 
 
