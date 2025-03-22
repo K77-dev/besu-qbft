@@ -35,7 +35,7 @@
     ```sh 
     docker build -t besu:lfdt .
     ```
-1. ⏳ Aguarde cerca de 2 a 5min para baixar e configurar o ambiente
+    > ⏳ Aguarde cerca de 2 a 5min para baixar e configurar o ambiente
 
 1. Caso esteja usando **Windows** (💩), execute o script abaixo:
 
@@ -43,7 +43,7 @@
     .\start_demo.ps1
     ```
 
-1. ⚠️ Serão abertos 4 terminais, cada um representa um nó/instância do BESU.
+    > ⚠️ Serão abertos 4 terminais, cada um representa um nó/instância do BESU.
 
 1. Vá até o `node1` e execute no terminal dele:
 
@@ -51,7 +51,7 @@
     ./n1up.sh
     ```
 
-1. ⏳ Aguarde até o endereço do enode do `node1`aparecer
+    > ⏳ Aguarde até o endereço do enode do `node1`aparecer
 
 1. Vá até o `node2` e execute no terminal dele:
 
@@ -70,7 +70,7 @@
     ./n4up.sh
     ```
 
-1. ⏳ Após cerca de 1 a 2min, a rede começará a produzir blocos e estará pronta para receber transações.
+    > ⏳ Após cerca de 1 a 2min, a rede começará a produzir blocos e estará pronta para receber transações.
 
 --- 
 
@@ -99,11 +99,11 @@
     NODE_ENDPOINT=http://10.10.0.11:8545 docker-compose up
     ```
 
-1. ⏳ Aguarde cerca de 5 a 10min para que todo o ambiente seja configurado e sincronizado.
+    > ⏳ Aguarde cerca de 5 a 10min para que todo o ambiente seja configurado e sincronizado.
 
-1. 👀 Você pode acompanhar se o ambiente está funcional nos logs do terminal do **UBUNTU** e pode verificar se o ambiente está funcional no seguinte endereço:
+    > 👀 Você pode acompanhar se o ambiente está funcional nos logs do terminal do **UBUNTU** e pode verificar se o ambiente está funcional no seguinte endereço:
 
-🔗 [Explorador de Blocos](http://localhost}
+    🔗 [Explorador de Blocos](http://localhost}
 
 
 ## ⚙️ Configurar MetaMask
