@@ -103,7 +103,7 @@
 
     > 👀 Você pode acompanhar se o ambiente está funcional nos logs do terminal do **UBUNTU** e pode verificar se o ambiente está funcional no seguinte endereço:
 
-    🔗 [Explorador de Blocos](http://localhost}
+    🔗 [Explorador de Blocos](http://localhost)
 
 
 ## ⚙️ Configurar MetaMask
