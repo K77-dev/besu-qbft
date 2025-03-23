@@ -110,8 +110,9 @@
 
 1. Adicione a rede na MetaMask com os sequintes parâmetros:
 
-- 🔗 URL: `http://localhost:8545`
-- 🛜 ChainID = `1337`
+- 🛜 Network Name: `Localhost 8545`
+- 🔗 RPC URL: `http://localhost:8545`
+- 🆔 ChainID = `1337`
 - 🔎 Block Explorer = `http://localhost/`
 
 1. Importe as chaves privadas da rede que você acabou de para Metamask
