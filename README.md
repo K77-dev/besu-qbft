@@ -105,6 +105,7 @@
 
     🔗 [Explorador de Blocos](http://localhost)
 
+--- 
 
 ## ⚙️ Configurar MetaMask
 
