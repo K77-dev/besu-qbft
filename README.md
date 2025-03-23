@@ -118,21 +118,23 @@
 
 1. Importe as chaves privadas da rede que você acabou de para Metamask
 
-    > 🔑 Test Acc1
+    > 🔑 Account 2
     ```sh
     0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63
     ```
 
-    > 🔑 Test Acc2
+    > 🔑 Account 3
     ```sh 
     0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
     ```
 
-    > 🔑 Test Acc3
+    > 🔑 Account 4
     ```sh 
     0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f
     ```
+    > ❗⚠️ A Metamask estará configurada com uma conta padrão, caso ache conveniente, mude o nome da conta de acordo com suas preferencias !
 
+    
 1. 💱 Faça uma transação, teste e verifique no explorador de Blocos !
 
 
