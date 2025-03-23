@@ -134,7 +134,8 @@
     ```
     > ❗⚠️ A Metamask estará configurada com uma conta padrão, caso ache conveniente, mude o nome da conta de acordo com suas preferencias !
 
-    
+1. Selecione a rede `Localhost 8545` na MetaMask
+   
 1. 💱 Faça uma transação, teste e verifique no explorador de Blocos !
 
 
