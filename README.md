@@ -110,11 +110,11 @@
 
 1. Adicione a rede na MetaMask com os sequintes parâmetros:
 
-- 🛜 Network Name =     `Localhost 8545`
-- 🔗 RPC URL =          `http://localhost:8545`
-- 🆔 ChainID =          `1337`
-- 💲 Currency Symbol =  `BRL`
-- 🔎 Block Explorer =   `http://localhost/`
+    - 🛜 Network Name =     `Localhost 8545`
+    - 🔗 RPC URL =          `http://localhost:8545`
+    - 🆔 ChainID =          `1337`
+    - 💲 Currency Symbol =  `BRL`
+    - 🔎 Block Explorer =   `http://localhost/`
 
 1. Importe as chaves privadas da rede que você acabou de para Metamask
 
@@ -135,7 +135,7 @@
     > ❗⚠️ A Metamask estará configurada com uma conta padrão, caso ache conveniente, mude o nome da conta de acordo com suas preferencias !
 
 1. Selecione a rede `Localhost 8545` na MetaMask
-   
+
 1. 💱 Faça uma transação, teste e verifique no explorador de Blocos !
 
 
