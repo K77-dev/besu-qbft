@@ -8,11 +8,11 @@ RUN apt-get update \
 # Upgrade existing packages
 RUN apt-get update && apt-get upgrade -y
 
-# Download and install Oracle JDK 20
+# Download and install Oracle JDK 24
 RUN wget https://download.oracle.com/java/24/latest/jdk-24_linux-x64_bin.tar.gz \
     && chmod a+x jdk-24_linux-x64_bin.tar.gz \
     && tar -xvf jdk-24_linux-x64_bin.tar.gz \
-	&& mv jdk-24 /opt \
+    && mv jdk-24.0.1 /opt/jdk-24 \
     && rm jdk-24_linux-x64_bin.tar.gz
 
 # Set JAVA_HOME and update PATH
