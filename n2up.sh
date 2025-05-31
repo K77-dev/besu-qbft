@@ -29,6 +29,13 @@ echo 'p2p-interface="0.0.0.0"' >> $n2_path
 echo 'nat-method="AUTO"' >> $n2_path
 echo -e "\n" >> $n2_path
 
+echo '# graphql' >> $n2_path
+echo 'graphql-http-enabled=true' >> $n2_path
+echo 'graphql-http-host="0.0.0.0"' >> $n2_path
+echo 'graphql-http-port=9546' >> $n2_path
+echo 'graphql-http-cors-origins=["all"]' >> $n2_path
+echo -e "\n" >> $n2_path
+
 echo "# Bootnodes" >> $n2_path
 echo 'bootnodes=["'$enode_address'"]' >> $n2_path
 

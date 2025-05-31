@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Besu GraphQL Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-bottom: 1px solid #444;
+        }
+        
+        .header h1 {
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .endpoint-selector {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .endpoint-selector select {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .main-container {
+            display: flex;
+            flex: 1;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        
+        .query-panel, .result-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .panel-header {
+            background: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 4px 4px 0 0;
+            font-weight: bold;
+        }
+        
+        textarea {
+            flex: 1;
+            background: #2d2d2d;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 0 0 4px 4px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+        }
+        
+        .result-area {
+            flex: 1;
+            background: #2d2d2d;
+            border: 1px solid #555;
+            border-radius: 0 0 4px 4px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow: auto;
+            white-space: pre-wrap;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        .examples {
+            background: #333;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .example-btn {
+            background: #666;
+            margin: 0.25rem;
+            padding: 0.5rem;
+            font-size: 12px;
+        }
+        
+        .status {
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .status.success {
+            background: #2d5a2d;
+            border: 1px solid #4CAF50;
+        }
+        
+        .status.error {
+            background: #5a2d2d;
+            border: 1px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Hyperledger Besu GraphQL Playground</h1>
+        <div class="endpoint-selector">
+            <label>Endpoint:</label>
+            <select id="endpointSelect">
+                <option value="http://localhost:9545/graphql">Bootnode (9545)</option>
+                <option value="http://localhost:9546/graphql">Node1 (9546)</option>
+                <option value="http://localhost:9547/graphql">Node2 (9547)</option>
+                <option value="http://localhost:9548/graphql">Node3 (9548)</option>
+                <option value="http://localhost:9549/graphql">Node4 (9549)</option>
+            </select>
+            <button onclick="testConnection()">Testar Conexão</button>
+        </div>
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <div class="examples">
+            <strong>Exemplos rápidos:</strong><br>
+            <button class="example-btn" onclick="loadExample('networkInfo')">Network Info</button>
+            <button class="example-btn" onclick="loadExample('latestBlock')">Último Bloco</button>
+            <button class="example-btn" onclick="loadExample('account')">Info da Conta</button>
+            <button class="example-btn" onclick="loadExample('peers')">Gas Price</button>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="query-panel">
+            <div class="panel-header">GraphQL Query</div>
+            <textarea id="queryInput" placeholder="Digite sua query GraphQL aqui...">query LatestBlock {
+  block {
+    number
+    hash
+    timestamp
+    gasUsed
+    gasLimit
+    miner {
+      address
+    }
+    parent {
+      hash
+    }
+  }
+}</textarea>
+            <div class="controls">
+                <button onclick="executeQuery()">Executar Query</button>
+                <button onclick="clearQuery()">Limpar</button>
+                <button onclick="formatQuery()">Formatar</button>
+            </div>
+        </div>
+        
+        <div class="result-panel">
+            <div class="panel-header">Resultado</div>
+            <div id="resultArea" class="result-area">Execute uma query para ver os resultados...</div>
+        </div>
+    </div>
+
+    <script>
+        const examples = {
+            networkInfo: `query NetworkInfo {
+  syncing {
+    startingBlock
+    currentBlock
+    highestBlock
+  }
+}`,
+            latestBlock: `query LatestBlock {
+  block {
+    number
+    hash
+    timestamp
+    gasUsed
+    gasLimit
+    miner {
+      address
+    }
+    parent {
+      hash
+    }
+  }
+}`,
+            account: `query AccountInfo {
+  block {
+    account(address: "0xfe3b557e8fb62b89f4916b721be55ceb828dbd73") {
+      address
+      balance
+      transactionCount
+    }
+  }
+}`,
+            peers: `query GasPrice {
+  gasPrice
+}`
+        };
+
+        function loadExample(type) {
+            document.getElementById('queryInput').value = examples[type];
+        }
+
+        function clearQuery() {
+            document.getElementById('queryInput').value = '';
+            document.getElementById('resultArea').innerText = 'Execute uma query para ver os resultados...';
+        }
+
+        function formatQuery() {
+            const query = document.getElementById('queryInput').value;
+            try {
+                // Formatação simples - adiciona indentação
+                const formatted = query
+                    .replace(/\s+/g, ' ')
+                    .replace(/{\s*/g, '{\n  ')
+                    .replace(/}\s*/g, '\n}\n')
+                    .replace(/,\s*/g, ',\n  ');
+                document.getElementById('queryInput').value = formatted;
+            } catch (e) {
+                showStatus('Erro ao formatar query', 'error');
+            }
+        }
+
+        async function testConnection() {
+            const endpoint = document.getElementById('endpointSelect').value;
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query: '{ block { number } }'
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showStatus(`✅ Conexão OK! Block Number: ${data.data?.block?.number || 'N/A'}`, 'success');
+                } else {
+                    showStatus(`❌ Erro na conexão: ${response.status} ${response.statusText}`, 'error');
+                }
+            } catch (error) {
+                showStatus(`❌ Erro na conexão: ${error.message}`, 'error');
+            }
+        }
+
+        async function executeQuery() {
+            const endpoint = document.getElementById('endpointSelect').value;
+            const query = document.getElementById('queryInput').value.trim();
+            
+            if (!query) {
+                showStatus('Digite uma query primeiro!', 'error');
+                return;
+            }
+
+            const resultArea = document.getElementById('resultArea');
+            resultArea.innerText = 'Executando query...';
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultArea.innerText = JSON.stringify(data, null, 2);
+                    if (data.errors) {
+                        showStatus('Query executada com erros - veja o resultado', 'error');
+                    } else {
+                        showStatus('Query executada com sucesso!', 'success');
+                    }
+                } else {
+                    resultArea.innerText = `Erro HTTP ${response.status}: ${response.statusText}\n\n${JSON.stringify(data, null, 2)}`;
+                    showStatus(`Erro HTTP: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                resultArea.innerText = `Erro de conexão: ${error.message}`;
+                showStatus(`Erro: ${error.message}`, 'error');
+            }
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.innerText = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 5000);
+        }
+
+        // Atalho Ctrl+Enter para executar query
+        document.getElementById('queryInput').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                executeQuery();
+            }
+        });
+
+        // Testar conexão inicial
+        window.addEventListener('load', () => {
+            setTimeout(testConnection, 1000);
+        });
+    </script>
+</body>
+</html>

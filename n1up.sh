@@ -28,7 +28,13 @@ echo 'p2p-host="10.10.0.11"' >> $n1_path
 echo 'p2p-port=30303' >> $n1_path
 echo 'p2p-interface="0.0.0.0"' >> $n1_path
 echo 'nat-method="AUTO"' >> $n1_path
+echo -e "\n" >> $n1_path
 
+echo '# graphql' >> $n1_path
+echo 'graphql-http-enabled=true' >> $n1_path
+echo 'graphql-http-host="0.0.0.0"' >> $n1_path
+echo 'graphql-http-port=9545' >> $n1_path
+echo 'graphql-http-cors-origins=["all"]' >> $n1_path
 echo -e "\n" >> $n1_path
 
 cd /besu-25.3.0/QBFT-Network/Node-1

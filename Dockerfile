@@ -39,7 +39,8 @@ RUN echo 'export PATH=/besu-25.3.0/bin:$PATH' >> ~/.bashrc
 RUN mkdir -p /besu-25.3.0/QBFT-Network/Node-1/data \
     && mkdir -p /besu-25.3.0/QBFT-Network/Node-2/data \
     && mkdir -p /besu-25.3.0/QBFT-Network/Node-3/data \
-    && mkdir -p /besu-25.3.0/QBFT-Network/Node-4/data
+    && mkdir -p /besu-25.3.0/QBFT-Network/Node-4/data \
+    && mkdir -p /besu-25.3.0/QBFT-Network/Node-5/data
 
 COPY qbftConfigFile.json /besu-25.3.0/QBFT-Network
 
@@ -60,13 +61,13 @@ RUN apt install -y jq
 RUN apt install -y curl
 
 WORKDIR /besu-25.3.0
-COPY n1up.sh n2up.sh n3up.sh n4up.sh /besu-25.3.0/
+COPY n1up.sh n2up.sh n3up.sh n4up.sh n5up.sh /besu-25.3.0/
 RUN sed -i 's/\r$//' /besu-25.3.0/n1up.sh
 RUN sed -i 's/\r$//' /besu-25.3.0/n2up.sh
 RUN sed -i 's/\r$//' /besu-25.3.0/n3up.sh
 RUN sed -i 's/\r$//' /besu-25.3.0/n4up.sh
-
-
+RUN sed -i 's/\r$//' /besu-25.3.0/n5up.sh
+RUN chmod +x /besu-25.3.0/n*up.sh
 
 # Set the entry point to bash
 CMD ["/bin/bash"]
