@@ -89,6 +89,7 @@ services:
 networks:
   rede_besu:
     external: true
+    name: besu-qbft_rede_besu
 
 volumes:
   mongodb-data:

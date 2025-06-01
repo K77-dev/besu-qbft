@@ -1,0 +1,97 @@
+version: "3.8"
+
+services:
+  node1:
+    image: besu:lfdt
+    container_name: Node1
+    hostname: Node1
+    privileged: true
+    networks:
+      rede_besu:
+        ipv4_address: 10.10.0.11
+    ports:
+      - "8545:8545"
+      - "9545:9545"
+      - "30303:30303"
+    command: /bin/bash -c "./n1up.sh"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8545"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  node2:
+    image: besu:lfdt
+    container_name: Node2
+    hostname: Node2
+    privileged: true
+    networks:
+      rede_besu:
+        ipv4_address: 10.10.0.12
+    ports:
+      - "8546:8546"
+      - "9546:9546"
+      - "30304:30304"
+    command: /bin/bash -c "sleep 15 && ./n2up.sh"
+    depends_on:
+      - node1
+    restart: unless-stopped
+
+  node3:
+    image: besu:lfdt
+    container_name: Node3
+    hostname: Node3
+    privileged: true
+    networks:
+      rede_besu:
+        ipv4_address: 10.10.0.13
+    ports:
+      - "8547:8547"
+      - "9547:9547"
+      - "30305:30305"
+    command: /bin/bash -c "sleep 20 && ./n3up.sh"
+    depends_on:
+      - node1
+    restart: unless-stopped
+
+  node4:
+    image: besu:lfdt
+    container_name: Node4
+    hostname: Node4
+    privileged: true
+    networks:
+      rede_besu:
+        ipv4_address: 10.10.0.14
+    ports:
+      - "8548:8548"
+      - "9548:9548"
+      - "30306:30306"
+    command: /bin/bash -c "sleep 25 && ./n4up.sh"
+    depends_on:
+      - node1
+    restart: unless-stopped
+
+  node5:
+    image: besu:lfdt
+    container_name: Node5
+    hostname: Node5
+    privileged: true
+    networks:
+      rede_besu:
+        ipv4_address: 10.10.0.15
+    ports:
+      - "8549:8549"
+      - "9549:9549"
+      - "30307:30307"
+    command: /bin/bash -c "sleep 30 && ./n5up.sh"
+    depends_on:
+      - node1
+    restart: unless-stopped
+
+networks:
+  rede_besu:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
